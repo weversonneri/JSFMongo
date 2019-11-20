@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="cadastro">
+            <p:panelGrid columns="2">
+
+                <p:outputLabel value="Placa"/>
+                <p:inputMask mask="aaa-9999" value="#{bean.carro.placa}"/>
+
+                <p:outputLabel value="Modelo"/>
+                <p:inputText value="#{bean.carro.modelo}"/>
+
+                <p:outputLabel value="Marca"/>
+                <p:inputText value="#{bean.carro.marca}"/>
+
+                <p:outputLabel value="Preço"/>
+                <p:inputText value="#{bean.carro.preco}"/>
+            </p:panelGrid>
+
+            <p:panelGrid columns="4">
+                <p:commandButton value="Salvar" action="#{bean.salvar()}" update="@form" />
+                <p:commandButton value="Alterar" action="#{bean.alterar()}" update="@form" />
+            </p:panelGrid>
+
+
+            <p:dataTable value="#{bean.carros}" var="car">
+                <f:facet name="header">
+                    Carros
+                </f:facet>
+                <p:column headerText="Placa">
+                    <p:outputLabel value="#{car.placa}" />
+                </p:column>
+
+                <p:column headerText="Modelo">
+                    <p:outputLabel value="#{car.modelo}" />
+                </p:column>
+
+                <p:column headerText="Marca">
+                    <p:outputLabel value="#{car.marca}" />
+                </p:column>
+
+                <p:column headerText="Preço">
+                    <p:outputLabel value="#{car.preco}" />
+                </p:column>
+
+                <p:column headerText="Ação">
+
+                    <p:column headerText="Ação">
+
+                        <p:commandLink styleClass="ui-icon ui-icon-pencil" style="float:left;margin-right:10px"
+                                       action="#{bean.alterar(car)}" update=":cadastro">
+                            <f:setPropertyActionListener value="#{car}" target="#{bean.carro}" />
+                        </p:commandLink>
+
+                        <p:commandLink styleClass="ui-icon ui-icon-trash" style="float:left;margin-right:10px"
+                                       action="#{bean.remover(car)}" update="@form"/>
+
+                    </p:column>  
+
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+    </h:body>
+</html>
